@@ -1,3 +1,4 @@
+import argparse
 import ast
 import os
 
@@ -20,9 +21,11 @@ class Boto3IAMParser(ast.NodeVisitor):
 
 
 def main():
-    directory = ""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("directory")
+    args = parser.parse_args()
     parser = Boto3IAMParser()
-    for root, _, files in os.walk(directory):
+    for root, _, files in os.walk(args.directory):
         for file in files:
             if not file.endswith(".py"):
                 continue
